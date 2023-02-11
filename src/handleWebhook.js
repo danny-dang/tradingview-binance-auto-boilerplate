@@ -83,7 +83,6 @@ export const handleWebhook = async (req, res) => {
     const side = alert.strategy.order_action.toUpperCase();
 
     //Entry the position with MARKET PRICE
-    //I would recommend TAKE PROFIT MARKET order to prevent unexpected behavior
     if (alert.strategy.strategy_action === "entry") {
       let quantity = Number(
         Number(alert.strategy.order_contracts).toFixed(
