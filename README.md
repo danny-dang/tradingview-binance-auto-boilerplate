@@ -1,4 +1,4 @@
-# Trading Binance Auto Trader
+# Trading Binance Auto Boilerplate
 
 Version v1.0
 
