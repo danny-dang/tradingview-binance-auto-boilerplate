@@ -17,9 +17,9 @@ And then use this text in the Alert message.
   "time": "{{timenow}}",
   "strategy": {
     "order_id": "{{strategy.order.id}}",
-	  "order_action": "{{strategy.order.action}}",
-	  "order_contracts": "{{strategy.order.contracts}}",
-	  "order_price": "{{strategy.order.price}}",
+    "order_action": "{{strategy.order.action}}",
+    "order_contracts": "{{strategy.order.contracts}}",
+    "order_price": "{{strategy.order.price}}",
     "meta_data": {{strategy.order.alert_message}},
     "strategy_action": "{{strategy.order.comment}}",
     "use_limit_tp_sl": "false"
