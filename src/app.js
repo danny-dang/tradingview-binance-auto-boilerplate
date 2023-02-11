@@ -8,12 +8,11 @@ app.use(json({ limit: "2mb" }));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-app.post("/webhook", handleWebhook);
-
-app.use("/", (req, res) => {
+app.get("/ping", (req, res) => {
   return res.send("Welcome to My Auto Trader");
 });
 
+app.post("/", handleWebhook);
 
 // errors & edge cases
 app.use((err, req, res, _) => {
