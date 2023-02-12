@@ -84,11 +84,6 @@ export const handleWebhook = async (req, res) => {
 
     //Entry the position with MARKET PRICE
     if (alert.strategy.strategy_action === "entry") {
-      let quantity = Number(
-        Number(alert.strategy.order_contracts).toFixed(
-          contractPrecision[alert?.symbol]
-        )
-      );
       let options = {
         symbol: alert?.symbol,
         side: side,
