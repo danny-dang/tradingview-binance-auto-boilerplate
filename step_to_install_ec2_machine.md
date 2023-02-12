@@ -63,3 +63,15 @@ To exit and save:
 ```
 Ctrl + X --> Y
 ```
+
+Test to make sure there is no error:
+
+```
+sudo nginx -t
+```
+
+Restart Nginx:
+
+```
+sudo systemctl restart nginx
+```
