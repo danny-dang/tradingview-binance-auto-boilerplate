@@ -55,7 +55,6 @@ server {
 
     location / {
         proxy_pass http://localhost:3001;
-        try_files $uri $uri/ =404;
     }
 }
 ```
