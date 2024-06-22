@@ -81,3 +81,5 @@ package-lock.json
 yarn.lock
 google-cloud-key.json
 /public/images
+/dist
+.env
