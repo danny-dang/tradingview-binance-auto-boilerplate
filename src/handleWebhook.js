@@ -185,3 +185,9 @@ export const handleWebhook = async (req, res) => {
 
   return res.json({ message: 'ok' });
 };
+
+export const checkAccountInfo = async (req, res) => {
+  const acocuntInfo = await client.accountInfo();
+
+  return res.json(acocuntInfo);
+};

@@ -1,7 +1,7 @@
 require('dotenv').config({});
 import express, { json } from 'express';
 import bodyParser from 'body-parser';
-import { handleWebhook } from './handleWebhook';
+import { checkAccountInfo, handleWebhook } from './handleWebhook';
 
 const app = express();
 
@@ -10,6 +10,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 app.post('/webhook', handleWebhook);
+app.get('/check-account', checkAccountInfo);
 
 app.use('/', (req, res) => {
   return res.send('Welcome to My Auto Trader');
