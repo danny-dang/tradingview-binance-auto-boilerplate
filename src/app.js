@@ -1,4 +1,3 @@
-require('dotenv').config({});
 import express, { json } from 'express';
 import bodyParser from 'body-parser';
 import { checkAccountInfo, handleWebhook } from './handleWebhook';
