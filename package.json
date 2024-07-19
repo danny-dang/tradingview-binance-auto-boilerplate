@@ -1,6 +1,6 @@
 {
   "name": "trading-binance-auto-trader",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "",
   "scripts": {
     "build": "babel src -d dist",

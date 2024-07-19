@@ -32,11 +32,12 @@ export const handleWebhook = async (req, res) => {
     //When Tradingview sends alert, we will get the order contracts sent from Tradingview
     //We use this quanity to open position in Binance
     //we also need to change the contract precision because the one got from TV is different for Binnace
-    let quantity = Number(
-      Number(alert.strategy.order_contracts).toFixed(
-        SYMBOLS[alert?.symbol].contractPrecision,
-      ),
-    );
+    let quantity =
+      Number(
+        Number(alert.strategy.order_contracts).toFixed(
+          SYMBOLS[alert?.symbol].contractPrecision,
+        ),
+      ) * (config.volumnMultipler || 1);
 
     //Get the take profit price from Tradingview order
     const take_profit_price = Number(
@@ -61,7 +62,7 @@ export const handleWebhook = async (req, res) => {
         symbol: alert?.symbol,
         side: side,
         type: 'MARKET',
-        quantity: quantity,
+        quantity,
       };
       console.log('---ENTRY Order Starting---');
       console.log('options', options);
@@ -82,7 +83,7 @@ export const handleWebhook = async (req, res) => {
             side: tp_side,
             stopPrice: take_profit_price,
             type: 'TAKE_PROFIT',
-            quantity: quantity,
+            quantity,
             reduceOnly: true,
             price: take_profit_price,
             timeInForce: 'GTE_GTC',
@@ -119,7 +120,7 @@ export const handleWebhook = async (req, res) => {
             side: sl_side,
             stopPrice: stop_loss_price,
             type: 'STOP',
-            quantity: quantity,
+            quantity,
             reduceOnly: true,
             price: stop_loss_price,
             priceProtect: true,
@@ -153,7 +154,7 @@ export const handleWebhook = async (req, res) => {
         symbol: alert?.symbol,
         side: side,
         type: 'MARKET',
-        quantity: quantity,
+        quantity,
       };
       console.log('---CLOSE Order starting---');
       console.log('options', options);
@@ -169,7 +170,7 @@ export const handleWebhook = async (req, res) => {
         symbol: alert?.symbol,
         side: side,
         type: 'MARKET',
-        quantity: quantity,
+        quantity,
       };
       console.log('---REDUCE Order starting---');
       console.log('options', options);

@@ -1,8 +1,8 @@
 # Trading Binance Auto Boilerplate
 
-Version v2.0
+Version v2.0.1
 
-Last update: June 23th, 2024
+Last update: July 19th, 2024
 
 This is boilerplate for Trading Server for Binance exchange. Currently it's only meant for trading Futures.
 
@@ -64,7 +64,12 @@ yarn install
 ```
 BINANCE_API_KEY=
 BINANCE_API_SECRET=
+VOLUME_MULTIPLER=
 ```
+
+- `BINANCE_API_KEY`: Your Binance API key.
+- `BINANCE_API_SECRET`: Your Binance API secret.
+- `VOLUME_MULTIPLER`: Volume multipler with the volume received from Tradingview
 
 3. Run the server
 
