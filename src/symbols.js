@@ -1,82 +1,86 @@
 export const SYMBOLS = {
   ADAUSDT: {
-    pricePrecision: 4,
-    contractPrecision: 0,
+    pricePrecision: 5,
+    quantityPrecision: 0,
   },
   APEUSDT: {
     pricePrecision: 4,
-    contractPrecision: 0,
+    quantityPrecision: 0,
   },
   AVAXUSDT: {
-    pricePrecision: 3,
-    contractPrecision: 0,
+    pricePrecision: 4,
+    quantityPrecision: 0,
   },
   BCHUSDT: {
     pricePrecision: 2,
-    contractPrecision: 3,
+    quantityPrecision: 3,
   },
   BLURUSDT: {
-    pricePrecision: 4,
-    contractPrecision: 0,
+    pricePrecision: 7,
+    quantityPrecision: 0,
   },
   BNBUSDT: {
-    pricePrecision: 2,
-    contractPrecision: 2,
+    pricePrecision: 3,
+    quantityPrecision: 2,
   },
   DARUSDT: {
     pricePrecision: 4,
-    contractPrecision: 1,
+    quantityPrecision: 1,
   },
   DOGEUSDT: {
-    pricePrecision: 5,
-    contractPrecision: 0,
+    pricePrecision: 6,
+    quantityPrecision: 0,
   },
   DOTUSDT: {
     pricePrecision: 3,
-    contractPrecision: 1,
+    quantityPrecision: 1,
   },
   DUSKUSDT: {
     pricePrecision: 5,
-    contractPrecision: 0,
+    quantityPrecision: 0,
   },
   ETCUSDT: {
     pricePrecision: 3,
-    contractPrecision: 2,
+    quantityPrecision: 2,
   },
   ETHUSDT: {
     pricePrecision: 2,
-    contractPrecision: 3,
+    quantityPrecision: 3,
   },
   LINKUSDT: {
     pricePrecision: 3,
-    contractPrecision: 2,
+    quantityPrecision: 2,
   },
   LTCUSDT: {
     pricePrecision: 2,
-    contractPrecision: 3,
+    quantityPrecision: 3,
   },
   MATICUSDT: {
-    pricePrecision: 4,
-    contractPrecision: 0,
+    pricePrecision: 5,
+    quantityPrecision: 0,
   },
   NEARUSDT: {
-    pricePrecision: 3,
-    contractPrecision: 0,
+    pricePrecision: 4,
+    quantityPrecision: 0,
   },
   REEFUSDT: {
     pricePrecision: 6,
-    contractPrecision: 0,
+    quantityPrecision: 0,
   },
   SOLUSDT: {
-    pricePrecision: 3,
-    contractPrecision: 0,
+    pricePrecision: 4,
+    quantityPrecision: 0,
   },
   TONUSDT: {
-    pricePrecision: 4,
-    contractPrecision: 1,
+    pricePrecision: 7,
+    quantityPrecision: 1,
   },
   UNIUSDT: {
-    pricePrecision: 3,
-    contractPrecision: 0,
+    pricePrecision: 4,
+    quantityPrecision: 0,
+  },
+  BTCUSDT: {
+    pricePrecision: 2,
+    quantityPrecision: 3,
   },
 };

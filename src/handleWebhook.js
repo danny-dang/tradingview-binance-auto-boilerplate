@@ -9,10 +9,29 @@ const client = Binance({
   // httpBase: "https://testnet.binance.vision", // For testing
 });
 
+let symbolInfoAPI = null;
+
+const getSymbolInfo = async () => {
+  try {
+    const { symbols } = await client.futuresExchangeInfo();
+    symbolInfoAPI = {};
+    symbols.forEach((symbolInfo) => {
+      const { symbol, pricePrecision, quantityPrecision } = symbolInfo;
+      symbolInfoAPI[symbol] = {
+        pricePrecision,
+        quantityPrecision,
+      };
+    });
+    console.log('----SUCCESSFULLY getting Symbol info----');
+  } catch (error) {
+    console.log('----FAILED getting Symbol info----');
+  }
+};
+getSymbolInfo();
+
 export const handleWebhook = async (req, res) => {
   const alert = req.body;
-  console.log('----RECEVING order----');
-  console.log(alert);
+  console.log('----RECEVING order----\n', alert);
   if (!alert?.symbol) {
     return res.json({ message: 'ok' });
   }
@@ -25,31 +44,31 @@ export const handleWebhook = async (req, res) => {
       alert.strategy.order_id.includes('TP') ||
       alert.strategy.order_id.includes('SL')
     ) {
-      console.log('---TP/SL order ignore---');
+      console.log('---TP/SL order ignore---', alert?.symbol);
       return res.json({ message: 'ok' });
     }
 
     //When Tradingview sends alert, we will get the order contracts sent from Tradingview
     //We use this quanity to open position in Binance
     //we also need to change the contract precision because the one got from TV is different for Binnace
-    let quantity =
-      Number(
-        Number(alert.strategy.order_contracts).toFixed(
-          SYMBOLS[alert?.symbol].contractPrecision,
-        ),
-      ) * (config.volumnMultipler || 1);
+    const allSymbols = symbolInfoAPI ? symbolInfoAPI : SYMBOLS;
+    let quantity = Number(
+      (
+        Number(alert.strategy.order_contracts) * (config.volumnMultipler || 1)
+      ).toFixed(allSymbols[alert?.symbol].quantityPrecision),
+    );
 
     //Get the take profit price from Tradingview order
     const take_profit_price = Number(
       Number(alert.strategy.meta_data?.tp_price || 0).toFixed(
-        SYMBOLS[alert?.symbol].pricePrecision,
+        allSymbols[alert?.symbol].pricePrecision,
       ),
     );
 
     //Get the stop loss price from Tradingview order
     const stop_loss_price = Number(
       Number(alert.strategy.meta_data?.sl_price || 0).toFixed(
-        SYMBOLS[alert?.symbol].pricePrecision,
+        allSymbols[alert?.symbol].pricePrecision,
       ),
     );
 
@@ -64,10 +83,9 @@ export const handleWebhook = async (req, res) => {
         type: 'MARKET',
         quantity,
       };
-      console.log('---ENTRY Order Starting---');
-      console.log('options', options);
+      console.log('---ENTRY Order Starting---\n', options);
       let result = await client.futuresOrder(options);
-      console.log('---ENTRY Order successful---', result);
+      console.log('---ENTRY Order successful---\n', result);
 
       //Set a TP order when entrying a position
       if (take_profit_price) {
@@ -99,11 +117,9 @@ export const handleWebhook = async (req, res) => {
           };
         }
 
-        console.log('---TP Order Starting---');
-        console.log('options', tp_options);
+        console.log('---TP Order Starting---\n', tp_options);
         let result = await client.futuresOrder(tp_options);
-        console.log('---TP Order successful---', result);
-        console.log(result);
+        console.log('---TP Order successful---\n', result);
       }
 
       //Set a SL order when entrying a position
@@ -138,13 +154,9 @@ export const handleWebhook = async (req, res) => {
           };
         }
 
-        console.log('---SL Order starting---');
-        console.log('options', sl_options);
-
+        console.log('---SL Order starting---\n', sl_options);
         let result = await client.futuresOrder(sl_options);
-
-        console.log('---SL Order successful---');
-        console.log(result);
+        console.log('---SL Order successful---\n', result);
       }
     }
 
@@ -156,12 +168,10 @@ export const handleWebhook = async (req, res) => {
         type: 'MARKET',
         quantity,
       };
-      console.log('---CLOSE Order starting---');
-      console.log('options', options);
+      console.log('---CLOSE Order starting---\n', options);
 
       let result = await client.futuresOrder(options);
-      console.log('---CLOSE Order successful---');
-      console.log(result);
+      console.log('---CLOSE Order successful---\n', result);
     }
 
     //Handle reduce the position
@@ -172,16 +182,13 @@ export const handleWebhook = async (req, res) => {
         type: 'MARKET',
         quantity,
       };
-      console.log('---REDUCE Order starting---');
-      console.log('options', options);
+      console.log('---REDUCE Order starting---\n', options);
 
       let result = await client.futuresOrder(options);
-      console.log('---REDUCE Order successful---');
-      console.log(result);
+      console.log('---REDUCE Order successful---\n', result);
     }
   } catch (error) {
-    console.log('---Order error---');
-    console.log(error);
+    console.log('---Order error---', alert.symbol, error);
   }
 
   return res.json({ message: 'ok' });
